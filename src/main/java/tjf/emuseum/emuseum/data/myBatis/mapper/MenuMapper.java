@@ -1,3 +1,10 @@
+/*
+ * @Description: 
+ * @Author: 唐健峰
+ * @Date: 2023-04-15 11:00:19
+ * @LastEditors: ${author}
+ * @LastEditTime: 2023-04-15 15:18:25
+ */
 package tjf.emuseum.emuseum.data.myBatis.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
