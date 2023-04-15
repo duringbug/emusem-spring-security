@@ -3,7 +3,7 @@
  * @Author: 唐健峰
  * @Date: 2023-04-15 09:25:04
  * @LastEditors: ${author}
- * @LastEditTime: 2023-04-15 09:59:03
+ * @LastEditTime: 2023-04-15 13:06:13
  */
 package tjf.emuseum.emuseum.config;
 
@@ -15,7 +15,6 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.GlobalAuthenticationConfigurerAdapter;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -36,7 +35,7 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity // security过滤器
-@EnableMethodSecurity(prePostEnabled = true)//开启注解
+@EnableMethodSecurity(prePostEnabled = true) // 开启注解
 
 public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
     @Autowired
@@ -76,8 +75,8 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
                         .anyRequest().authenticated())
                 .authenticationManager(authenticationManager())
                 .exceptionHandling()
-                        .authenticationEntryPoint(authenticationEntryPoint)
-                        .accessDeniedHandler(accessDeniedHandler)
+                .authenticationEntryPoint(authenticationEntryPoint)
+                .accessDeniedHandler(accessDeniedHandler)
                 .and()
                 .userDetailsService(userDetailsService)
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
@@ -98,6 +97,7 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
         source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
         return source;
     }
+
     @Bean
     public AuthenticationManager authenticationManager() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();

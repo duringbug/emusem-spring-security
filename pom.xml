@@ -100,6 +100,21 @@
 			<version>3.0.4</version>
 		</dependency>
 		<!--redisCache-->
+		<!--mail-->
+		<!--邮箱激活-->
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+		<!--mail-->
+		<!-- 加密包 -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-crypto-hash</artifactId>
+			<version>1.11.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
