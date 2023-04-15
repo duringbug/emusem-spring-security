@@ -33,19 +33,21 @@ import lombok.ToString;
 @ToString
 public class LoginUser implements UserDetails {
     private User user;
-    //存放当前登录用户的权限信息，一个用户可以有多个权限
+    // 存放当前登录用户的权限信息，一个用户可以有多个权限
     private List<String> permissions;
-    public LoginUser(User user, List<String> permissions){
-        this.user=user;
-        this.permissions=permissions;
+
+    public LoginUser(User user, List<String> permissions) {
+        this.user = user;
+        this.permissions = permissions;
     }
-    //权限集合
+
+    // 权限集合
     @JsonIgnore
-    private  List<SimpleGrantedAuthority>  authorities;
+    private List<SimpleGrantedAuthority> authorities;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (authorities!=null){
+        if (authorities != null) {
             return authorities;
         }
         List<GrantedAuthority> newList = new ArrayList<>();

@@ -3,24 +3,24 @@
  * @Author: 唐健峰
  * @Date: 2023-04-15 09:25:04
  * @LastEditors: ${author}
- * @LastEditTime: 2023-04-15 13:06:13
+ * @LastEditTime: 2023-04-15 18:52:42
  */
 package tjf.emuseum.emuseum.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configuration.GlobalAuthenticationConfigurerAdapter;
+import org.springframework.security.config.annotation.SecurityBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
@@ -37,20 +37,26 @@ import java.util.Arrays;
 @EnableWebSecurity // security过滤器
 @EnableMethodSecurity(prePostEnabled = true) // 开启注解
 
-public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
+public class SecurityConfig implements WebSecurityConfigurer {
     @Autowired
     JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+    // 通过用户名验证
+    @Qualifier("userDetailsServiceImpl3")
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService3;
+    @Qualifier("userDetailsServiceImpl1")
+    @Autowired
+    private UserDetailsService userDetailsService1;
+    @Qualifier("userDetailsServiceImpl2")
+    @Autowired
+    private UserDetailsService userDetailsService2;
     @Autowired
     private AuthenticationEntryPoint authenticationEntryPoint;
     @Autowired
     private AccessDeniedHandler accessDeniedHandler;
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+    @Qualifier("MD5PasswordEncoder")
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -78,7 +84,9 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
                 .authenticationEntryPoint(authenticationEntryPoint)
                 .accessDeniedHandler(accessDeniedHandler)
                 .and()
-                .userDetailsService(userDetailsService)
+                .userDetailsService(userDetailsService3)
+                .userDetailsService(userDetailsService1)
+                .userDetailsService(userDetailsService2)
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .cors();
 
@@ -101,12 +109,15 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
     @Bean
     public AuthenticationManager authenticationManager() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setUserDetailsService(userDetailsService2);
         return new ProviderManager(Arrays.asList(authProvider));
     }
 
     @Override
-    public void init(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
+    public void init(SecurityBuilder builder) throws Exception {
+    }
+
+    @Override
+    public void configure(SecurityBuilder builder) throws Exception {
     }
 }

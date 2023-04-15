@@ -1,3 +1,10 @@
+/*
+ * @Description: 
+ * @Author: 唐健峰
+ * @Date: 2023-04-15 10:57:11
+ * @LastEditors: ${author}
+ * @LastEditTime: 2023-04-15 18:47:45
+ */
 package tjf.emuseum.emuseum.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;

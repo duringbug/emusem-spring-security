@@ -1,9 +1,9 @@
 /*
- * @Description:
+ * @Description: 用户名比较
  * @Author: 唐健峰
  * @Date: 2023-04-15 09:16:02
  * @LastEditors: ${author}
- * @LastEditTime: 2023-04-15 14:49:21
+ * @LastEditTime: 2023-04-15 16:08:38
  */
 package tjf.emuseum.emuseum.service;
 
@@ -25,15 +25,15 @@ import tjf.emuseum.emuseum.data.myBatis.mapper.UserMapper;
 import tjf.emuseum.emuseum.entity.LoginUser;
 import tjf.emuseum.emuseum.entity.User;
 
-@Service
+@Service("userDetailsServiceImpl1")
 
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl1 implements UserDetailsService {
     @Autowired
     private UserMapper userMapper;
     @Autowired
     private MenuMapper menuMapper;
 
-    // z自定义用户信息在的查询
+    // 自定义用户信息在的查询
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // （认证，即校验该用户是否存在）查询用户信息

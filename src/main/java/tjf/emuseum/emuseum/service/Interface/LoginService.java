@@ -3,11 +3,20 @@
  * @Author: 唐健峰
  * @Date: 2023-04-15 10:03:06
  * @LastEditors: ${author}
+ * @LastEditTime: 2023-04-15 16:47:46
+ */
+/*
+ * @Description: 
+ * @Author: 唐健峰
+ * @Date: 2023-04-15 10:03:06
+ * @LastEditors: ${author}
  * @LastEditTime: 2023-04-15 13:00:35
  */
 package tjf.emuseum.emuseum.service.Interface;
 
 import org.springframework.http.ResponseEntity;
+
+import tjf.emuseum.emuseum.entity.LoginToken;
 import tjf.emuseum.emuseum.entity.User;
 
 import java.util.Map;
@@ -18,7 +27,7 @@ import java.util.Map;
  * @date 2023/4/15 10:03
  */
 public interface LoginService {
-    ResponseEntity<?> login(User user);
+    ResponseEntity<?> login(LoginToken loginToken);
 
     ResponseEntity<?> logout();
 }

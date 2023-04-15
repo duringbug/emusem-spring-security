@@ -1,5 +1,7 @@
 package tjf.emuseum.emuseum.entity;
 
+import org.springframework.stereotype.Component;
+
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import lombok.AllArgsConstructor;
@@ -12,7 +14,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @TableName("sys_salt")
+@Component
 public class Salt {
-    Long id;
-    String userSalt;
+    private Long id;
+    private String userSalt;
+    private String userName;
+    private String email;
 }

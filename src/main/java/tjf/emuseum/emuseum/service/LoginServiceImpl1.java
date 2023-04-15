@@ -3,7 +3,7 @@
  * @Author: 唐健峰
  * @Date: 2023-04-15 10:05:12
  * @LastEditors: ${author}
- * @LastEditTime: 2023-04-15 11:53:09
+ * @LastEditTime: 2023-04-15 16:49:26
  */
 package tjf.emuseum.emuseum.service;
 
@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import tjf.emuseum.emuseum.data.redis.RedisCache;
+import tjf.emuseum.emuseum.entity.LoginToken;
 import tjf.emuseum.emuseum.entity.LoginUser;
 import tjf.emuseum.emuseum.entity.User;
 import tjf.emuseum.emuseum.service.Interface.LoginService;
@@ -38,11 +39,12 @@ public class LoginServiceImpl1 implements LoginService {
     private RedisCache redisCache;
 
     @Override
-    public ResponseEntity<?> login(User user) {
+    public ResponseEntity<?> login(LoginToken loginToken) {
+        System.out.println(loginToken.toString() + "+++++++++++++++++++++++++++++++++++");
 
         // 通过UsernamePasswordAuthenticationToken获取用户名和密码
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                user.getUserName(), user.getPassword());
+                loginToken.getInput(), loginToken.getPassword());
 
         // AuthenticationManager委托机制对authenticationToken 进行用户认证
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);

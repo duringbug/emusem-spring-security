@@ -1,3 +1,10 @@
+<!--
+ * @Description: 
+ * @Author: 唐健峰
+ * @Date: 2023-04-15 00:54:25
+ * @LastEditors: ${author}
+ * @LastEditTime: 2023-04-15 19:02:08
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,20 +16,26 @@
 <body>
     <h2>hello word</h2>
     <div>
-        <form id="loginForm" action="/user/login" method="post">
-            <input type="email" name="email" placeholder="email"><br />
+        <div>
+            <form action="https://localhost:8040/user/upload" enctype="multipart/form-data" method="post">
+                选择文件<input type="file" name="file"><br />
+                <button type="submit">上传</button>
+            </form>
+        </div>
+        <form id="loginForm" action="https://localhost:8040/user/login" method="post">
+            <input type="text" name="input" placeholder="email"><br />
             <input type="password" name="password" placeholder="password"><br />
             <button type="submit">登录</button>
         </form>
         <a href="javascript:void(0);" onclick="postLogout()">
             <button type="button">退出登录</button>
         </a>
-        <form id="registerForm" action="/user/register" method="post">
-            <input type="email" name="email" placeholder="email"><br />
+        <form id="registerForm" action="https://localhost:8040/user/register" method="post">
+            <input type="text" name="email" placeholder="email"><br />
             <input type="password" name="password" placeholder="password"><br />
             <button type="submit">注册</button>
         </form>
-        <form id="sendMailForm" action="/user/sendMail" method="post">
+        <form id="sendMailForm" action="https://localhost:8040/user/sendMail" method="post">
             <input type="email" name="mail" placeholder="mail"><br />
             <button type="submit">发送</button>
         </form>
