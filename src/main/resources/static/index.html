@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>hello word</h2>
+    <div>
+        <form id="myForm" action="https://localhost:8040/user/login" method="post">
+            <input type="email" name="email" placeholder="email"><br />
+            <input type="password" name="password" placeholder="password"><br />
+            <button type="submit">登录</button>
+        </form>
+        <a href="javascript:void(0);" onclick="postLogout()">
+            <button type="button">退出登录</button>
+        </a>
+    </div>
+    <script>
+        const form = document.getElementById('myForm');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // 防止默认提交行为
+
+            const formData = new FormData(form);
+            const json = JSON.stringify(Object.fromEntries(formData)); // FormData 转为对象，再转为 JSON
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', form.action);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(json);
+        });
+    </script>
+    <script>
+        function postLogout() {
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'https://localhost:8040/user/logout';
+
+            var csrfToken = document.createElement('input');
+            csrfToken.type = 'hidden';
+            csrfToken.name = '_csrf';
+            csrfToken.value = 'csrfTokenValue'; // 从页面获取CSRF令牌值，用于防止CSRF攻击
+
+            form.appendChild(csrfToken);
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
+</body>
+</html>
