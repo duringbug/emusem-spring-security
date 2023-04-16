@@ -1,9 +1,9 @@
 /*
- * @Description: 邮箱比较
+ * @Description: mysql邮箱登录
  * @Author: 唐健峰
  * @Date: 2023-04-15 16:01:54
  * @LastEditors: ${author}
- * @LastEditTime: 2023-04-15 17:52:52
+ * @LastEditTime: 2023-04-16 13:22:47
  */
 package tjf.emuseum.emuseum.service;
 
@@ -51,9 +51,8 @@ public class UserDetailsServiceImpl2 implements UserDetailsService {
         }
         Map<String, Object> params = new HashMap<>();
         params.put("email", (Object) mail);
-        passwordEncoder.setSalt(String.valueOf(saltMapper.selectByMap(params)));
 
-        // TODO (授权，即查询用户具有哪些权限)查询对应的用户信息
+        // (授权，即查询用户具有哪些权限)查询对应的用户信息
         // 定义一个权限集合
         List<String> list = new ArrayList<String>(Arrays.asList("test", "admin"));
 

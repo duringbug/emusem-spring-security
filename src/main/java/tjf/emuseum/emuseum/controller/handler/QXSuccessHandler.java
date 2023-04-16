@@ -13,12 +13,13 @@ import java.io.IOException;
  * @author 唐健峰
  * @version 1.0
  * @date 2023/4/15 11:48
- * @description:
+ * @description: 认证成功处理器
  */
 @Component
 public class QXSuccessHandler implements AuthenticationSuccessHandler {
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+            Authentication authentication) throws IOException, ServletException {
         System.out.println("认证成功");
     }
 }

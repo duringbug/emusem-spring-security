@@ -1,4 +1,4 @@
-package tjf.emuseum.emuseum.service;
+package tjf.emuseum.emuseum.controller.handler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,7 +22,8 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
     @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
+    public void handle(HttpServletRequest request, HttpServletResponse response,
+            AccessDeniedException accessDeniedException) throws IOException, ServletException {
         ResponseEntity<String> responseEntity = ResponseEntity.status(HttpStatus.FORBIDDEN)
                 .body("您的权限不足");
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);

@@ -1,3 +1,10 @@
+/*
+ * @Description: 
+ * @Author: 唐健峰
+ * @Date: 2023-04-15 13:54:37
+ * @LastEditors: ${author}
+ * @LastEditTime: 2023-04-16 14:12:47
+ */
 package tjf.emuseum.emuseum.utils.Mail;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,7 +98,7 @@ public class SendMail {
             mex.printStackTrace();
         }
         Map<String, String> responseData = new HashMap<>();
-        responseData.put("salt", salt);
+        responseData.put("salt", salt.replaceAll("-", ""));
         responseData.put("result", shiroMD5.encryptPassword(send_number, salt, 1024));
         return ResponseEntity.ok(responseData);
     }

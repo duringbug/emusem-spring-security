@@ -3,7 +3,7 @@
  * @Author: 唐健峰
  * @Date: 2023-04-15 01:21:51
  * @LastEditors: ${author}
- * @LastEditTime: 2023-04-15 01:46:23
+ * @LastEditTime: 2023-04-16 11:07:16
  */
 package tjf.emuseum.emuseum.config;
 
@@ -40,6 +40,7 @@ public class RedisConfig {
     private char[] password;
     @Value("${spring.data.redis.database}")
     private int database;
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Bean("jackson2JsonRedisSerializer")
     public Jackson2JsonRedisSerializer<Object> getJackson2JsonRedisSerializer() {
@@ -82,6 +83,7 @@ public class RedisConfig {
         redisTemplate.setHashKeySerializer(jackson2JsonRedisSerializer);
         redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
         redisTemplate.afterPropertiesSet();
+        this.redisTemplate = redisTemplate;
         return redisTemplate;
     }
 }

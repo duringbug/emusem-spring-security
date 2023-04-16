@@ -3,7 +3,7 @@
  * @Author: 唐健峰
  * @Date: 2023-04-15 10:05:12
  * @LastEditors: ${author}
- * @LastEditTime: 2023-04-15 16:49:26
+ * @LastEditTime: 2023-04-16 10:07:39
  */
 package tjf.emuseum.emuseum.service;
 
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import tjf.emuseum.emuseum.data.redis.RedisCache;
 import tjf.emuseum.emuseum.entity.LoginToken;
 import tjf.emuseum.emuseum.entity.LoginUser;
-import tjf.emuseum.emuseum.entity.User;
 import tjf.emuseum.emuseum.service.Interface.LoginService;
 import tjf.emuseum.emuseum.utils.JwtUtil;
 
@@ -40,7 +39,6 @@ public class LoginServiceImpl1 implements LoginService {
 
     @Override
     public ResponseEntity<?> login(LoginToken loginToken) {
-        System.out.println(loginToken.toString() + "+++++++++++++++++++++++++++++++++++");
 
         // 通过UsernamePasswordAuthenticationToken获取用户名和密码
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
@@ -67,7 +65,8 @@ public class LoginServiceImpl1 implements LoginService {
         map.put("token", jwt);
 
         // 把完整的用户信息存入redis userid为key 用户信息为value
-        redisCache.setCacheObject("login:" + userid, loginUser);
+        redisCache.setCacheName("login");
+        redisCache.put(userid, loginUser);
 
         return ResponseEntity.ok(map);
     }
@@ -82,7 +81,8 @@ public class LoginServiceImpl1 implements LoginService {
         Long userid = loginUser.getUser().getId();
 
         // 根据userid找到redis对应值进行删除
-        redisCache.deleteObject("login:" + userid);
+        redisCache.setCacheName("login");
+        redisCache.remove(userid);
         return ResponseEntity.ok("注销成功");
     }
 }

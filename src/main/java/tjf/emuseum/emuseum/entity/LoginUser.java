@@ -3,7 +3,7 @@
  * @Author: 唐健峰
  * @Date: 2023-04-15 01:02:50
  * @LastEditors: ${author}
- * @LastEditTime: 2023-04-15 09:24:02
+ * @LastEditTime: 2023-04-16 13:01:24
  */
 package tjf.emuseum.emuseum.entity;
 
@@ -12,6 +12,9 @@ import java.util.Collection;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.annotation.Nullable;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,6 +34,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Nullable
 public class LoginUser implements UserDetails {
     private User user;
     // 存放当前登录用户的权限信息，一个用户可以有多个权限

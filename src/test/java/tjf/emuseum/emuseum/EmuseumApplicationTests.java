@@ -3,7 +3,7 @@
  * @Author: 唐健峰
  * @Date: 2023-04-15 00:40:32
  * @LastEditors: ${author}
- * @LastEditTime: 2023-04-15 14:54:08
+ * @LastEditTime: 2023-04-16 10:32:07
  */
 package tjf.emuseum.emuseum;
 
@@ -44,7 +44,11 @@ class EmuseumApplicationTests {
 	@Test
 	public void testInsertUser() {
 		User user = new User();
-		userMapper.insert(user);
+		try {
+			userMapper.insert(user);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	@Test

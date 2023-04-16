@@ -3,7 +3,7 @@
  * @Author: 唐健峰
  * @Date: 2023-04-15 13:03:58
  * @LastEditors: ${author}
- * @LastEditTime: 2023-04-15 15:45:23
+ * @LastEditTime: 2023-04-16 10:17:46
  */
 package tjf.emuseum.emuseum.service;
 
@@ -39,10 +39,12 @@ public class RegisterServiceImpl1 implements RegisterService {
     @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<?> register(User user) {
         Map<String, String> responseData = new HashMap<>();
-        String salt = UUID.randomUUID().toString();
+        String salt = "95648c19-bf75-41ee-8d5c-68f8f4029ece";
         user.setPassword(shiroMD5.encryptPassword(user.getPassword(), salt, 1024));
-        this.salt.setId(null);
+        this.salt.setId(user.getId());
         this.salt.setUserSalt(salt);
+        this.salt.setEmail(user.getEmail());
+        this.salt.setUserName(user.getUserName());
         saltMapper.insert(this.salt);
         userMapper.insert(user);
         responseData.put("register", "successful");
@@ -54,5 +56,4 @@ public class RegisterServiceImpl1 implements RegisterService {
         // TODO 注销功能
         return null;
     }
-
 }
