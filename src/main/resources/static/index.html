@@ -3,7 +3,7 @@
  * @Author: 唐健峰
  * @Date: 2023-04-15 00:54:25
  * @LastEditors: ${author}
- * @LastEditTime: 2023-04-16 13:29:15
+ * @LastEditTime: 2023-04-16 15:25:33
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -31,13 +31,33 @@
             <button type="button">退出登录</button>
         </a>
         <form id="registerForm" action="https://localhost:8040/user/register" method="post">
-            <input type="text" name="email" placeholder="email"><br />
+            <input type="text" name="userName" placeholder="userName"><br />
+            <input type="text" name="nickName" placeholder="nickName"><br />
+            <input type="text" name="status" placeholder="账号状态status（0正常 1停用）"><br />
+            <input type="text" name="phonenumber" placeholder="phonenumber"><br />
+            <input type="text" name="sex" placeholder="用户性别sex（0男，1女，2未知）"><br />
+            <input type="text" name="userType" placeholder="用户类型userType（0管理员，1普通用户）"><br />
+            <input type="text" name="createTime" placeholder="创建时间createTime"><br />
+            <input type="text" name="delFlag" placeholder="删除标志（0代表未删除，1代表已删除）delFlag"><br />
+            <input type="email" name="email" placeholder="email"><br />
             <input type="password" name="password" placeholder="password"><br />
             <button type="submit">注册</button>
         </form>
         <form id="sendMailForm" action="https://localhost:8040/user/sendMail" method="post">
             <input type="email" name="mail" placeholder="mail"><br />
             <button type="submit">发送</button>
+        </form>
+        <form id="sendMailForm" action="https://localhost:8040/admin/get" method="get">
+            <button type="submit">
+                <p>管理员get操作:在这里添加请求头，值为登录传来的token，名字叫“token”</p>
+            </button>
+
+        </form>
+        <form id="sendMailForm" action="https://localhost:8040/admin/post" method="post">
+            <button type="submit">
+                <p>管理员post操作:在这里添加请求头，值为登录传来的token，名字叫“token”</p>
+            </button>
+
         </form>
     </div>
     <script>

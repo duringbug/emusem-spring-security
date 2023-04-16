@@ -3,7 +3,7 @@
  * @Author: 唐健峰
  * @Date: 2023-04-15 01:02:50
  * @LastEditors: ${author}
- * @LastEditTime: 2023-04-16 13:01:24
+ * @LastEditTime: 2023-04-16 15:15:47
  */
 package tjf.emuseum.emuseum.entity;
 
@@ -59,7 +59,7 @@ public class LoginUser implements UserDetails {
             SimpleGrantedAuthority authority = new SimpleGrantedAuthority(permission);
             newList.add(authority);
         }
-        return authorities;
+        return newList;
     }
 
     @Override

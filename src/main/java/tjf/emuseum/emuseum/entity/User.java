@@ -1,3 +1,10 @@
+/*
+ * @Description: 
+ * @Author: 唐健峰
+ * @Date: 2023-04-15 01:58:45
+ * @LastEditors: ${author}
+ * @LastEditTime: 2023-04-16 15:21:12
+ */
 package tjf.emuseum.emuseum.entity;
 
 import java.util.Date;

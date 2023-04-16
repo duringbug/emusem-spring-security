@@ -3,7 +3,7 @@
  * @Author: 唐健峰
  * @Date: 2023-04-16 14:40:23
  * @LastEditors: ${author}
- * @LastEditTime: 2023-04-16 15:39:12
+ * @LastEditTime: 2023-04-16 15:43:22
  */
 /*
  * @Description: 
@@ -15,11 +15,11 @@
 package tjf.emuseum.emuseum.data.myBatis.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import tjf.emuseum.emuseum.entity.Role;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
-import tjf.emuseum.emuseum.entity.Menu;
-
-import java.util.List;
 
 /**
  * @author 唐健峰
@@ -29,6 +29,5 @@ import java.util.List;
  */
 @Mapper
 @Repository
-public interface MenuMapper extends BaseMapper<Menu> {
-    List<String> selectPermsByUserId(Long userid);
+public interface RoleMapper extends BaseMapper<Role> {
 }

@@ -3,7 +3,7 @@
  * @Author: 唐健峰
  * @Date: 2023-04-15 09:16:02
  * @LastEditors: ${author}
- * @LastEditTime: 2023-04-16 12:59:30
+ * @LastEditTime: 2023-04-16 15:05:12
  */
 package tjf.emuseum.emuseum.service;
 
@@ -44,9 +44,7 @@ public class UserDetailsServiceImpl3 implements UserDetailsService {
         // (授权，即查询用户具有哪些权限)查询对应的用户信息
         // 定义一个权限集合
         List<String> list = new ArrayList<String>(loginUser.getPermissions());
-
         // 把数据封装成UserDetails返回
         return new LoginUser(loginUser.getUser(), list);
     }
-
 }

@@ -3,7 +3,7 @@
  * @Author: 唐健峰
  * @Date: 2023-04-15 09:25:04
  * @LastEditors: ${author}
- * @LastEditTime: 2023-04-16 14:24:32
+ * @LastEditTime: 2023-04-16 14:52:55
  */
 package tjf.emuseum.emuseum.config;
 
@@ -73,7 +73,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/user/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/user/sendMail").permitAll()
                         .requestMatchers(HttpMethod.POST, "/user/logout").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/admin/*").hasAnyAuthority("admin")
+                        .requestMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority("admin")
+                        .requestMatchers(HttpMethod.POST, "/admin/**").hasAnyAuthority("admin")
                         // 允许 SpringMVC 的默认错误地址匿名访问
                         .requestMatchers("/error").permitAll()
                         // 其他所有接口必须有Authority信息，Authority在登录成功后的UserDetailsImpl对象中默认设置“ROLE_USER”
