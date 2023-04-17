@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ RedisConfig.class, SecurityConfig.class , MinioConfig.class})
+@Import({ RedisConfig.class, SecurityConfig.class , MinioConfig.class,OkHttpConfig.class})
 public class SpringConfig {
 
 }

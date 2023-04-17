@@ -83,7 +83,7 @@ class EmuseumApplicationTests {
 		}
 	}
 	@Test
-	public void testUpload(){
+	public void testConnect(){
 		System.out.println(fileStorageImpl1.listBucket().size());
 	}
 }

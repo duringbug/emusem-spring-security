@@ -132,7 +132,13 @@
 			<version>8.5.2</version>
 		</dependency>
 		<!-- minio -->
-
+		<!--https解析器-->
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>4.10.0</version>
+		</dependency>
+		<!--https解析器-->
 	</dependencies>
 
 	<build>
