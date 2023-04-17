@@ -1,5 +1,5 @@
 /*
- * @Description: 
+ * @Description:
  * @Author: 唐健峰
  * @Date: 2023-04-15 00:51:21
  * @LastEditors: ${author}
@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({ RedisConfig.class, SecurityConfig.class })
+@Import({ RedisConfig.class, SecurityConfig.class , MinioConfig.class})
 public class SpringConfig {
 
 }

@@ -14,13 +14,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import org.springframework.web.multipart.MultipartFile;
 import tjf.emuseum.emuseum.data.myBatis.mapper.*;
 import tjf.emuseum.emuseum.entity.Role;
 import tjf.emuseum.emuseum.entity.User;
+import tjf.emuseum.emuseum.service.Interface.FileStorage;
 import tjf.emuseum.emuseum.utils.Mail.SendMail;
 
 @SpringBootTest
 class EmuseumApplicationTests {
+	@Autowired
+	private FileStorage fileStorageImpl1;
 	@Autowired
 	private SendMail sendMail;
 
@@ -77,5 +81,9 @@ class EmuseumApplicationTests {
 		for (Role role : rList) {
 			System.out.println(role);
 		}
+	}
+	@Test
+	public void testUpload(){
+		System.out.println(fileStorageImpl1.listBucket().size());
 	}
 }
