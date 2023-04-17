@@ -3,7 +3,7 @@
  * @Author: 唐健峰
  * @Date: 2023-04-15 00:54:25
  * @LastEditors: ${author}
- * @LastEditTime: 2023-04-16 15:25:33
+ * @LastEditTime: 2023-04-17 16:45:27
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +29,11 @@
             </form>
         </div>
         <img src="https://localhost:8040/file/download?path=admin/404/2023/04/17/404.png">
-        <p style="font-size: 5px">< img src="https://localhost:8040/file/download?path=admin/404/2023/04/17/404.png">(注意要怎么写,在响应头记得加上token验证身份，后面会做一个得到用户储存路径的接口，现在统一用这张404代替，登录才会出现图片404，未登录是401，可以注册一个账号或直接用tjf@qq.com tjf 来测试登录的后才有的权限操作)</p>
+        <p style="font-size: 5px">
+            < img src="https://localhost:8040/file/download?path=admin/404/2023/04/17/404.png">
+                (注意要怎么写,在响应头记得加上token验证身份，后面会做一个得到用户储存路径的接口，现在统一用这张404代替，登录才会出现图片404，未登录是401，可以注册一个账号或直接用tjf@qq.com tjf
+                来测试登录的后才有的权限操作)
+        </p>
         <form id="loginForm" action="https://localhost:8040/user/login" method="post">
             <input type="text" name="input" placeholder="email"><br />
             <input type="password" name="password" placeholder="password"><br />
