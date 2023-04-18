@@ -15,6 +15,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,6 +31,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import tjf.emuseum.emuseum.controller.filer.JwtAuthenticationTokenFilter;
+import tjf.emuseum.emuseum.service.provider.EmailAuthenticationProvider;
+import tjf.emuseum.emuseum.service.provider.UseridAuthenticationProvider;
+import tjf.emuseum.emuseum.service.provider.UsernameAuthenticationProvider;
 
 @Configuration
 @EnableWebSecurity // security过滤器
@@ -38,15 +42,6 @@ import tjf.emuseum.emuseum.controller.filer.JwtAuthenticationTokenFilter;
 public class SecurityConfig {
     @Autowired
     JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
-    @Qualifier("userDetailsServiceImpl3")
-    @Autowired
-    private UserDetailsService userDetailsService3;
-    @Qualifier("userDetailsServiceImpl1")
-    @Autowired
-    private UserDetailsService userDetailsService1;
-    @Qualifier("userDetailsServiceImpl2")
-    @Autowired
-    private UserDetailsService userDetailsService2;
     @Autowired
     private AuthenticationEntryPoint authenticationEntryPoint;
     @Autowired
@@ -54,6 +49,15 @@ public class SecurityConfig {
     @Qualifier("MD5PasswordEncoder")
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Qualifier("useridAuthenticationProvider")
+    @Autowired
+    private UseridAuthenticationProvider useridAuthenticationProvider;
+    @Qualifier("emailAuthenticationProvider")
+    @Autowired
+    private EmailAuthenticationProvider emailAuthenticationProvider;
+    @Qualifier("usernameAuthenticationProvider")
+    @Autowired
+    private UsernameAuthenticationProvider usernameAuthenticationProvider;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -85,8 +89,12 @@ public class SecurityConfig {
                 .authenticationEntryPoint(authenticationEntryPoint)
                 .accessDeniedHandler(accessDeniedHandler)
                 .and()
-                .authenticationProvider(authenticationProvider())
                 // 加我们自定义的过滤器，替代UsernamePasswordAuthenticationFilter
+                //以下为添加授权与验证
+                .authenticationProvider(emailAuthenticationProvider)
+                .authenticationProvider(useridAuthenticationProvider)
+                .authenticationProvider(usernameAuthenticationProvider)
+                //加上权限认证替换了上面的UsernamePasswordAuthenticationFilter
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .cors();
 
@@ -107,18 +115,12 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config, AuthenticationManagerBuilder auth) throws Exception {
+        //必须写,否则初始化没有添加多余的Provider导致Handler dispatch failed: java.lang.StackOverflowError问题
+        auth
+                .authenticationProvider(emailAuthenticationProvider)
+                .authenticationProvider(useridAuthenticationProvider)
+                .authenticationProvider(usernameAuthenticationProvider);
         return config.getAuthenticationManager();
-    }
-
-    @Bean
-    public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        // 方法获取UserDetails
-        authProvider.setUserDetailsService(userDetailsService2);
-        // 设置密码编辑器
-        authProvider.setPasswordEncoder(passwordEncoder);
-
-        return authProvider;
     }
 }

@@ -16,10 +16,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import org.springframework.web.multipart.MultipartFile;
 import tjf.emuseum.emuseum.data.myBatis.mapper.*;
+import tjf.emuseum.emuseum.data.redis.RedisCache;
 import tjf.emuseum.emuseum.entity.Role;
 import tjf.emuseum.emuseum.entity.User;
 import tjf.emuseum.emuseum.service.Interface.FileStorage;
 import tjf.emuseum.emuseum.utils.Mail.SendMail;
+import tjf.emuseum.emuseum.utils.WebUtil;
 
 @SpringBootTest
 class EmuseumApplicationTests {
@@ -36,6 +38,8 @@ class EmuseumApplicationTests {
 
 	@Autowired
 	private RoleMapper roleMapper;
+	@Autowired
+	private RedisCache redisCache;
 
 	@Test
 	void contextLoads() {
@@ -43,8 +47,8 @@ class EmuseumApplicationTests {
 
 	@Test
 	public void testUserMapper() {
-		List<User> userlList = userMapper.selectList(null);
-		for (User user : userlList) {
+		List<User> userList = userMapper.selectList(null);
+		for (User user : userList) {
 			System.out.println(user);
 		}
 	}
@@ -85,5 +89,10 @@ class EmuseumApplicationTests {
 	@Test
 	public void testConnect(){
 		System.out.println(fileStorageImpl1.listBucket().size());
+	}
+
+	@Test
+	public void testRedisCacheUtil(){
+		System.out.println(redisCache.getValue("name"));
 	}
 }

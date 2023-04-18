@@ -1,5 +1,5 @@
 /*
- * @Description: 
+ * @Description:
  * @Author: 唐健峰
  * @Date: 2023-04-16 03:23:36
  * @LastEditors: ${author}
@@ -10,6 +10,7 @@ package tjf.emuseum.emuseum.data.redis;
 import java.util.Collection;
 import java.util.Set;
 import org.apache.ibatis.cache.CacheException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.data.redis.connection.zset.Tuple;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -20,6 +21,8 @@ import tjf.emuseum.emuseum.config.RedisConfig;
 @SuppressWarnings(value = { "unchecked", "rawtypes" })
 @Component("redisCache")
 public class RedisCache<K, V> {
+    @Autowired
+    public RedisTemplate redisTemplate;
 
     private String cacheName;
 
@@ -35,38 +38,41 @@ public class RedisCache<K, V> {
     }
 
     public V get(K k) throws CacheException {
-        V v = (V) this.getRedisTemplate().opsForHash().get(this.cacheName, k.toString());
+        V v = (V) redisTemplate.opsForHash().get(this.cacheName, k.toString());
         return v;
     }
 
     public V put(K k, V v) throws CacheException {
-        this.getRedisTemplate().opsForHash().put(this.cacheName, k.toString(), v);
+        redisTemplate.opsForHash().put(this.cacheName, k.toString(), v);
         return v;
     }
 
     public V remove(K k) throws CacheException {
-        return (V) this.getRedisTemplate().opsForHash().delete(this.cacheName, k.toString());
+        return (V) redisTemplate.opsForHash().delete(this.cacheName, k.toString());
     }
 
     public void clear() throws CacheException {
-        this.getRedisTemplate().delete(this.cacheName);
+        redisTemplate.delete(this.cacheName);
     }
 
     public int size() {
-        return this.getRedisTemplate().opsForHash().size(this.cacheName).intValue();
+        return redisTemplate.opsForHash().size(this.cacheName).intValue();
     }
 
     public Set<K> keys() {
-        return (Set<K>) this.getRedisTemplate().opsForHash().keys(this.cacheName);
+        return (Set<K>) redisTemplate.keys(this.cacheName);
     }
 
     public Collection<V> values() {
-        return (Collection<V>) this.getRedisTemplate().opsForHash().values(this.cacheName);
+        return (Collection<V>) redisTemplate.opsForHash().values(this.cacheName);
     }
-
-    private RedisTemplate getRedisTemplate() {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(RedisConfig.class);
-        RedisTemplate redisTemplate = (RedisTemplate) context.getBean("redisTemplate");
-        return redisTemplate;
+    public void setValue(String key,String value){
+        redisTemplate.opsForValue().set(key,value);
+    }
+    public Object getValue(String key){
+        return redisTemplate.opsForValue().get(key);
+    }
+    public void destroy() {
+        redisTemplate.getConnectionFactory().getConnection().close();
     }
 }

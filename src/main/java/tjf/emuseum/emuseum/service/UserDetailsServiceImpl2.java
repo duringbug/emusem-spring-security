@@ -33,9 +33,7 @@ import tjf.emuseum.emuseum.utils.MD5PasswordEncoder;
 public class UserDetailsServiceImpl2 implements UserDetailsService {
     @Autowired
     private UserMapper userMapper;
-    @Qualifier("MD5PasswordEncoder")
-    @Autowired
-    private MD5PasswordEncoder passwordEncoder;
+
     @Autowired
     SaltMapper saltMapper;
 
@@ -47,14 +45,14 @@ public class UserDetailsServiceImpl2 implements UserDetailsService {
         User user = userMapper.selectOne(queryWrapper);
         // 如果没有查询到用户
         if (Objects.isNull(user)) {
-            throw new RuntimeException("用户名或者密码错误");
+            throw new UsernameNotFoundException("邮箱号或者密码错误");
         }
         Map<String, Object> params = new HashMap<>();
         params.put("email", (Object) mail);
 
         // (授权，即查询用户具有哪些权限)查询对应的用户信息
         // 定义一个权限集合
-        List<String> list = new ArrayList<String>(Arrays.asList("admin"));
+        List<String> list = new ArrayList<String>(List.of("admin"));
 
         // 把数据封装成UserDetails返回
         return new LoginUser(user, list);
